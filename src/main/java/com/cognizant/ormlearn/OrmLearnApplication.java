@@ -42,7 +42,7 @@ public class OrmLearnApplication {
 		SpringApplication.run(OrmLearnApplication.class, args);
 	}
 
-	/******* Country ******/
+	
 	@Bean
 	CommandLineRunner testGetAllCountries(CountryService countryService) {
 
@@ -114,7 +114,7 @@ public class OrmLearnApplication {
 		};
 	}
 	
-	/******* StockService ******/
+	
 	@Bean
 	CommandLineRunner testForFacebookDate(StockService stockService) {
 		return args -> {
@@ -160,7 +160,7 @@ public class OrmLearnApplication {
 		};
 	}
 
-	/* Payroll */
+	
 	@Bean
 	CommandLineRunner testGetEmployee() {
 		return args -> {
