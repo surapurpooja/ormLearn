@@ -27,9 +27,14 @@ import com.cognizant.ormlearn.service.StockService;
 public class OrmLearnApplication {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrmLearnApplication.class);
-
+	@Autowired
+	CountryService countryService;
+	
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	StockService stockService;
 
 	@Autowired
 	DepartmentService departmentService;
@@ -44,7 +49,7 @@ public class OrmLearnApplication {
 
 	
 	@Bean
-	CommandLineRunner testGetAllCountries(CountryService countryService) {
+	CommandLineRunner testGetAllCountries() {
 
 		return args -> {
 			LOGGER.info("Start");
@@ -55,7 +60,7 @@ public class OrmLearnApplication {
 	}
 
 	@Bean
-	CommandLineRunner testAddCountry(CountryService countryService) {
+	CommandLineRunner testAddCountry() {
 		return args -> {
 			LOGGER.info("START");
 			countryService.addCountry(new Country("AA", "Arabian"));
@@ -64,16 +69,16 @@ public class OrmLearnApplication {
 	}
 
 	@Bean
-	CommandLineRunner testDeleteCountryByCode(CountryService countryService) {
+	CommandLineRunner testDeleteCountryByCode() {
 		return args -> {
 			LOGGER.info("START");
-			countryService.deleteCountry("AD");
+			countryService.deleteCountry("AB");
 			LOGGER.info("END");
 		};
 	}
 
 	@Bean
-	CommandLineRunner testFindCountryByCode(CountryService countryService) {
+	CommandLineRunner testFindCountryByCode() {
 		return args -> {
 			LOGGER.info("START");
 			Country country = countryService.findCountryByCode("CL");
@@ -83,16 +88,16 @@ public class OrmLearnApplication {
 	}
 
 	@Bean
-	CommandLineRunner testUpdateCountry(CountryService countryService) {
+	CommandLineRunner testUpdateCountry() {
 		return args -> {
 			LOGGER.info("START");
-			countryService.updateCountry("IN", "Indonesia");
+			countryService.updateCountry("AF", "Afganisthan");
 			LOGGER.info("END");
 		};
 	}
 
 	@Bean
-	CommandLineRunner testGetAllMatchingCountries(CountryService countryService) {
+	CommandLineRunner testGetAllMatchingCountries() {
 		return args -> {
 			LOGGER.info("START");
 			LOGGER.debug("countries = {}", countryService.getSearchingCountry("ou"));
@@ -100,7 +105,7 @@ public class OrmLearnApplication {
 		};
 	}
 	@Bean
-	CommandLineRunner testSortCountry(CountryService countryService) {
+	CommandLineRunner testSortCountry() {
 		return args -> {
 			LOGGER.info("Start");
 			try {
@@ -116,46 +121,42 @@ public class OrmLearnApplication {
 	
 	
 	@Bean
-	CommandLineRunner testForFacebookDate(StockService stockService) {
+	CommandLineRunner testForFacebookDate() {
 		return args -> {
 			LOGGER.info("Start");
 			List<Stock> stockList = stockService.findByCodeAndDate();
 			LOGGER.debug("Stocks={}", stockList);
-			stockList.forEach(System.out::println);
 			LOGGER.info("End");
 
 		};
 	}
 
 	@Bean
-	CommandLineRunner testForCodeAndPrice(StockService stockService) {
+	CommandLineRunner testForCodeAndPrice() {
 		return args -> {
 			LOGGER.info("Start");
 			List<Stock> stockList = stockService.findByCodeAndPrice();
 			LOGGER.debug("Stocks={}", stockList);
-			stockList.forEach(System.out::println);
 			LOGGER.info("End");
 		};
 	}
 
 	@Bean
-	CommandLineRunner testForStockHighest(StockService stockService) {
+	CommandLineRunner testForStockHighest() {
 		return args -> {
 			LOGGER.info("Start");
 			List<Stock> stockList = stockService.findByHighestVolume();
 			LOGGER.debug("Stocks={}", stockList);
-			// stockList.forEach(System.out::println);
 			LOGGER.info("End");
 		};
 	}
 
 	@Bean
-	CommandLineRunner testForStockLowest(StockService stockService) {
+	CommandLineRunner testForStockLowest() {
 		return args -> {
 			LOGGER.info("Start");
 			List<Stock> stockList = stockService.findByLowestVolumeNflx();
 			LOGGER.debug("Stocks={}", stockList);
-			stockList.forEach(System.out::println);
 			LOGGER.info("End");
 		};
 	}
@@ -178,11 +179,11 @@ public class OrmLearnApplication {
 		return args -> {
 			LOGGER.info("START");
 			Employee employee = new Employee();
-			employee.setName("Keerthana");
-			employee.setSalary(new BigDecimal(7000.0));
+			employee.setName("Pooja");
+			employee.setSalary(new BigDecimal(9000.0));
 			employee.setPermanent(true);
 			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-			employee.setDateOfBirth(ft.parse("1999-10-20"));
+			employee.setDateOfBirth(ft.parse("2000-07-10"));
 			Department department = departmentService.findDepartment(1);
 			employee.setDepartment(department);
 			employeeService.saveEmployee(employee);
@@ -218,13 +219,13 @@ public class OrmLearnApplication {
 	@Bean
 	CommandLineRunner testAddSkillToEmployee() {
 		return args -> {
-			LOGGER.info("START... testAddSkillToEmployee");
+			LOGGER.info("START");
 			Employee employee = employeeService.findEmployee(2);
 			Skill skill = skillService.findSkill(3);
 			employee.getSkillList().add(skill);
 			employeeService.saveEmployee(employee);
 			LOGGER.debug("Employee:{}", employee);
-			LOGGER.info("END... testAddSkillToEmployee");
+			LOGGER.info("END");
 		};
 	}
 
